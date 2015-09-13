@@ -1,3 +1,5 @@
+blub
+
 class ConfigInput 
 	// this is supposed to read from the configuration file
 	// config file contains the number of I/O modules and amount of memory and max_processes
