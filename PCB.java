@@ -17,4 +17,38 @@ public class PCB
 		}
 	}	
 
-	
+	static int addtoQueue(int index, int type)
+	{
+			if (type==0)
+				entries[i].chkforIO()
+			else if (type==1)
+			{
+				// we need to schedule the thing, so we check for memory
+				if (Memory.current_free_memory>=entries[index].mem_req[entries[index].cpuIndex])
+				{
+					// we add to Ready queue
+					Ready.enqueue(entries[index])
+				}
+				else 
+				{
+					// we add to memory waiting 
+					Memory.enqueue(enqueue[index])
+				}
+			}
+	}
+
+	static void removeDoneProcesses()
+	{
+		for (Process p: entries)
+		{
+			if (p.state==-1)
+				entries.remove(p);
+		}
+	}
+
+	static void printProcessTable()
+	{
+		//TODO
+	}
+
+}
