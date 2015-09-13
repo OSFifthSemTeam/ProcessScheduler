@@ -1,0 +1,167 @@
+class ConfigInput 
+	// this is supposed to read from the configuration file
+	// config file contains the number of I/O modules and amount of memory and max_processes
+	// SystemConfig class will contain this info, load the information onto that 
+
+class SystemConfig
+	int max_proc;
+	int PSG; //granularity
+	int numI/O;
+	int memory;
+
+class ReadJobs 
+	// this reads from the Jobs file, initializes the InputEntry 
+	// initializes only start_time, total_exec_time, name
+	// initialize outputentry in the Output class
+
+class ReadModelFiles
+	// reads the processname from each InputEntry initialized from ReadJobs
+	// initializes io_module_num, io_module_time, mem_req
+
+class InputEntry
+	String pname;
+	int start_time;
+	int total_exec_time;
+	int io_module_num;
+	int io_module_time;
+	int mem_req;
+	int exists; // this is 1 if it is in the PCB, 0 if it doesn't, -1 if it is done executing
+
+class Output
+	int output_times[] // array of times at which output must be printed
+	int current_index ; // current outputentry it is on
+	int nextOutputTime() // returns the time at which display_Output() will be called next
+	void display_Output() // displays the current process table
+
+class InputTable
+	static InputEntry entries[]; // could be an ArrayList if you want it to dynamically grow and stuff, this is your headache
+	static checkfornewprocess(int current_time); //any process with start_time < current_time should be added to the PCB
+		/* if (start_time < current_time && entries[i].exists!=1) 
+			if (PCB.addNewEntry(entries[i])==1 )
+				entries[i].exists=1 // this means it succeeded
+		*/		
+	static addnewInputEntry(); // creates a new InputEntry
+	// if any other function is required, add it yourself
+
+class ProcessTableEntry
+	int pid;
+	int tableIndex;
+	int io_module_num[];
+	int io_module_time[];
+	int io_module_current_exec; // amount of time it spent in the module
+	int mem_req[];
+	int state;
+	int cpuIndex; // this talks about which index of mem_req and total_time_req we should consider 	
+	int ioIndex; // this will be the index of which io_module_time and io_module_num to consider for io_module_current_exec to compare with
+	int current_exec;
+	int total_time_req[];
+	// add your functions for initialization, I'm just writing init() here
+	init() 
+	/* state - -1 for execution done
+		   0 for running
+		   1 for waiting on I/O
+		   2 for waiting on memory 
+		   3 for Ready */
+	void chkforIO()
+		/* 
+			if (current_exec>=total_time_req[cpuindex])
+				current_exec=0
+				cpuindex++
+				if (ioIndex==io_module_num.length)
+					state=-1
+				else 
+					IOQueues.addnewProc(this)
+		*/
+	
+
+class PCB
+	static ProcessTableEntry entries[] // make this an ArrayList 
+	static int addNewEntry(InputEntry entry) // this should check if the max_proc is exceeded, if it is, then do nothing and return -1 for fail
+		/* also add to memory queue or IOqueue or ReadyQueue based on current system parameters */
+	static addtoQueue(int index, int type) 
+		/* 
+			type - 1 if it came from an I/O queue, 0 otherwise
+			//this should decide which queue to add to and call that respective queue's function
+			if (type==0)
+				entries[i].chkforIO()
+			else if (type==1)
+				// we need to schedule the thing, so we check for memory
+				if (Memory.current_free_memory>=entries[index].mem_req[entries[index].cpuIndex])
+					// we add to Ready queue
+					Ready.enqueue(entries[index])
+				else 
+					// we add to memory waiting 
+					Memory.enqueue(enqueue[index])
+				
+		*/
+		
+
+	static removeDoneProcesses() // any entry that has it's state as -1 should be removed and it should be printed as finished in the log file
+	static getProcessByID(int pid) // returns the entry that matches the pid
+	static printProcessTable() // for output
+
+class IOModuleEntry
+	Queue<Process> waiting;
+	Queue<Process> done;
+	addnewProcess(Process obj) //adds a new thing to the queue
+	update(int granularity) //updates the io_module_current_exec of the process at the head of the queue
+		/* 
+			proc.io_module_current_exec+=granularity;
+			if (proc.io_module_current_exec>=proc.io_module_time)
+				proc=dequeue()
+				proc.ioIndex++;
+				PCB.addtoQueue(proc.tableIndex, 1)
+		*/
+	
+class IOQueues
+	static IOModuleEntry queues[]
+	static addNewProc(ProcessTableEntry proc)
+		/*
+		if (proc.io_module_num!=-1)
+			queues[proc.io_module_num].addnewProcess(proc);
+		*/
+	static update(int psg)
+		/* for (i from 0 to queues.length)
+			queues[i].update(psg) */
+	
+class MemQueue
+	static Queue<Process> waiting;
+	static int current_free_memory;
+	static enqueue(ProcessTableEntry proc)
+	static update() 
+		/*
+			proc = waiting.element()
+			if (Memory.current_free_memory>proc.mem_req)
+				proc=dequeue()
+				PCB.addtoQueue(proc.tableIndex,0)
+		*/
+	static updateCurrentFreeMem(int size, int incr) // if increment, incr = +1, else -1
+	
+
+class Ready
+	static Queue<Process> ReadyProcs;
+	static Process running;
+	static enqueue(Process proc)
+	static update(int psg) 
+		/* 
+			// this guy dequeues the head of the queue to Running and enqueues Running to the Ready Queue
+			PCB.entries[running.tableIndex].current_exec+=psg
+			PCB.addtoQueue(running.tableIndex)
+			running = ReadyProcs.dequeue()
+		*/
+
+class Main
+	PSVM()
+	/*
+	ConfigInput
+	ReadJobs
+	ReadModelFiles
+	current_time=0
+	// initialization is done, InputTable by now will have all InputEntries and PCB will have all values initialized
+	while ()
+		/*
+		InputTable.checkfornewprocess(current_time)
+		Ready.update(SystemConfig.psg)
+		IOQueues.update(SystemConfig.psg)
+		Memory.update()	
+		*/
