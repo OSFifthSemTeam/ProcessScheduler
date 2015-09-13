@@ -1,4 +1,3 @@
-blub
 
 class ConfigInput 
 	// this is supposed to read from the configuration file
