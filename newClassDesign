@@ -22,10 +22,10 @@ class ReadModelFiles
 class InputEntry
 	String pname;
 	int start_time;
-	int total_exec_time;
-	int io_module_num;
-	int io_module_time;
-	int mem_req;
+	int total_exec_time[];
+	int io_module_num[];
+	int io_module_time[];
+	int mem_req[];
 	int exists; // this is 1 if it is in the PCB, 0 if it doesn't, -1 if it is done executing
 
 class Output
@@ -44,7 +44,7 @@ class InputTable
 	static addnewInputEntry(); // creates a new InputEntry
 	// if any other function is required, add it yourself
 
-class ProcessTableEntry
+class Process
 	int pid;
 	int tableIndex;
 	int io_module_num[];
@@ -76,7 +76,7 @@ class ProcessTableEntry
 	
 
 class PCB
-	static ProcessTableEntry entries[] // make this an ArrayList 
+	static Process entries[] // make this an ArrayList 
 	static int addNewEntry(InputEntry entry) // this should check if the max_proc is exceeded, if it is, then do nothing and return -1 for fail
 		/* also add to memory queue or IOqueue or ReadyQueue based on current system parameters */
 	static addtoQueue(int index, int type) 
@@ -131,10 +131,11 @@ class MemQueue
 	static enqueue(ProcessTableEntry proc)
 	static update() 
 		/*
-			proc = waiting.element()
-			if (Memory.current_free_memory>proc.mem_req)
+			// traverse through the queue, for each element 	
+			if (current_free_memory>proc.mem_req[cpuIndex])
 				proc=dequeue()
 				PCB.addtoQueue(proc.tableIndex,0)
+				updateCurrentFreeMem(proc.mem_req[cpuIndex], -1)
 		*/
 	static updateCurrentFreeMem(int size, int incr) // if increment, incr = +1, else -1
 	
