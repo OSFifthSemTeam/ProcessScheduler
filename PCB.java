@@ -24,14 +24,16 @@ public class PCB
 			else if (type==1)
 			{
 				// we need to schedule the thing, so we check for memory
-				if (Memory.current_free_memory>=entries[index].mem_req[entries[index].cpuIndex])
+				if (Memory.current_free_memory>=entries.get(index).mem_req[entries.get(index).cpuIndex])
 				{
 					// we add to Ready queue
+					entries.get(index).state=3;	
 					Ready.enqueue(entries[index])
 				}
 				else 
 				{
-					// we add to memory waiting 
+					// we add to memory waiting
+					entries.get(index).state=2;	
 					Memory.enqueue(enqueue[index])
 				}
 			}

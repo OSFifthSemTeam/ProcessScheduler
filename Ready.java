@@ -15,6 +15,7 @@ public class Ready {
 		PCB.entries.get(running.tableIndex).current_exec+=psg;
 		PCB.addToQueue(running);
 		running = ReadyProcs.remove();
-		
+		//changing the state of the guy after putting him to run
+		PCB.entries.get(running.tableIndex).state=0;
 	}
 }
