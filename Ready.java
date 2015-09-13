@@ -13,7 +13,7 @@ public class Ready {
 	static update(int psg)
 	{
 		PCB.entries.get(running.tableIndex).current_exec+=psg;
-		PCB.addToQueue(running.tableIndex);
+		PCB.addToQueue(running);
 		running = ReadyProcs.remove();
 		
 	}
