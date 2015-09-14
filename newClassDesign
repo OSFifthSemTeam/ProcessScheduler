@@ -37,8 +37,19 @@ class InputEntry
 	int start_time;
 	LinkedList<RunSpec> reqs;
 	int exists; // this is 1 if it is in the PCB, 0 if it doesn't, -1 if it is done executing
-	
 
+	//constructor taking pname and start_time
+	void add_cpuspec(int time, int mem)
+		/*
+			RunSpec obj = new CpuSpec(time, mem);
+			reqs.add(obj)
+		*/
+
+	void add_IOspec(int num, int time)
+		/*
+			RunSpec obj = new IOSpec(num, time);
+			reqs.add(obj)
+		*/
 
 class Output
 	int output_times[] // array of times at which output must be printed
@@ -67,6 +78,14 @@ class Process
 		   1 for waiting on I/O
 		   2 for waiting on memory 
 		   3 for Ready */
+
+	//constructor
+	Process(InputEntry entry)
+		/*
+			//assign pid
+			specifications = entry.specifications
+		*/
+
 	int chkforIO()
 		/* 
 			// -1 - complete 0 - added to I/O 1 - needs to be added to CPU
@@ -81,7 +100,6 @@ class Process
 				else 
 					return 1
 		*/
-	
 
 class PCB
 	static Process entries[] // make this an ArrayList 

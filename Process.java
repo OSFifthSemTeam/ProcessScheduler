@@ -3,35 +3,29 @@ public class Process
 {
 	int pid;
 	int tableIndex;
-	int io_module_num[];
-	int io_module_time[];
-	int io_module_current_exec; // amount of time it spent in the module
-	int mem_req[];
 	int state;
-	int cpuIndex; // this talks about which index of mem_req and total_time_req we should consider 	
-	int ioIndex; // this will be the index of which io_module_time and io_module_num to consider for io_module_current_exec to compare with
 	int current_exec;
-	int total_time_req[];
-
-	void Process()
+	LinkedList<RunSpec> specifications;
+	void Process(InputEntry entry)
 	{
-		// this should be done by the Input guys
+		pid=0;
+		state=-2;
+		current_exec=0;
+		specifications = entry.specifications;
 	}
 
 	void checkforIO()
 	{	   	
-		if (current_exec>=total_time_req[cpuIndex])
-		{
-			current_exec=0;
-			cpuIndex++;
-			if (ioIndex==io_module_num.length)
-			{
-				// this means the process is complete
-				state=-1;
-			}
-			else 
-				IOQueues.addNewProc(this);
-		}
+		current_exec=0
+		specifications=specifications.getNext()
+		if (specifications==null)
+			state=-1
+			return -1
+		else if (specifications.head.type==1)
+			IOQueues.addnewProc(this)
+			return 0
+		else 
+			return 1
 	}
 
 }

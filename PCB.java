@@ -11,7 +11,7 @@ public class PCB
 			return -1;
 		else 
 		{
-			Process proc = new Process(entry.start_time,entry.total_exec_time[],entry.io_module_num[],entry.io_module_time[],entry.mem_req[]);
+			Process proc = new Process(entry);
 			entries.add(proc);
 			entries.get(entries.size).tableIndex = entries.size;
 			addtoQueue(proc);
@@ -22,11 +22,12 @@ public class PCB
 	static int addtoQueue(int index, int type)
 	{
 			if (type==0)
-				entries[i].chkforIO();
-			else if (type==1)
 			{
+			check=entries[i].chkforIO()
+			if (check==1)
 				// we need to schedule the thing, so we check for memory
-				if (Memory.current_free_memory>=entries.get(index).mem_req[entries.get(index).cpuIndex])
+				current_spec = (CpuSpec) entries[index].specifications;
+				if (Memory.current_free_memory>=current_spec.head.mem_req)
 				{
 					// we add to Ready queue
 					entries.get(index).state=3;	
@@ -39,6 +40,8 @@ public class PCB
 					Memory.enqueue(enqueue[index]);
 				}
 			}
+			else if (type==1)
+				Ready.enqueue(entries[index])
 	}
 
 	static void removeDoneProcesses()
