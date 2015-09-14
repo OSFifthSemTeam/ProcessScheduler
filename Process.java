@@ -20,14 +20,14 @@ public class Process
 
 	void checkforIO()
 	{	   	
-		if (current_exec>=total_time_req[cpuindex])
+		if (current_exec>=total_time_req[cpuIndex])
 		{
 			current_exec=0;
-			cpuindex++;
+			cpuIndex++;
 			if (ioIndex==io_module_num.length)
 			{
 				// this means the process is complete
-				state=-1
+				state=-1;
 			}
 			else 
 				IOQueues.addNewProc(this);

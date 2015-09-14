@@ -1,10 +1,9 @@
-package ProcessScheduler;
 import java.util.ArrayList;
 
 public class IOQueues {
 	static IOModuleEntry queues[] = new IoModuleEntry[SystemConfig.numIO];
 	
-	static void addNewProc(ProcessTableEntry proc)
+	static void addNewProc(Process proc)
 	{
 		queues[proc.io_module_num[proc.ioIndex]].addNewProcess(proc);
 	}

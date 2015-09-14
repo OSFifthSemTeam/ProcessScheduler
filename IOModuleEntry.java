@@ -1,27 +1,26 @@
-package ProcessScheduler;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class IOModuleEntry {
-	static Queue<ProcessTableEntry> done = new LinkedList<ProcessTableEntry>();
-	static Queue<ProcessTableEntry> waiting = new LinkedList<ProcessTableEntry>();
+	static Queue<Process> done = new LinkedList<Process>();
+	static Queue<Process> waiting = new LinkedList<Process>();
 	
-	void addNewProcess(ProcessTableEntry new_proc)
+	void addNewProcess(Process new_proc)
 	{
 		waiting.add(new_proc);
 	}
-	ProcessTableEntry procWaitingHead()
+	Process procWaitingHead()
 	{
 		return waiting.element();
 	}
 	void update(int granularity)
 	{
 		waiting.element().io_module_current_exec+=granularity;
-		if(waiting.element().io_module_current_exec>=waiting.element().io_module_time)
+		if(waiting.element().io_module_current_exec>=waiting.element().io_module_time[waiting.element().ioIndex])
 		{
-			ProcessTableEntry proc = waiting.remove();
+			Process proc = waiting.remove();
 			proc.ioIndex++;
-			PCB.addToQueue(proc.tableIndex,1);
+			PCB.addtoQueue(proc.tableIndex,1);
 		}
 	}
 }
