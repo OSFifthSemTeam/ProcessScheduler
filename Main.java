@@ -1,3 +1,5 @@
+
+
 public class Main
 {
 	public static void main(String args[])
@@ -10,10 +12,10 @@ public class Main
 		int current_time=0;
 		while (true)
 		{
-			InputTable.checkfornewprocess(current_time)
-			Ready.update(SystemConfig.psg)
-			IOQueues.update(SystemConfig.psg)
-			MemQueue.update()	
+			InputTable.checkfornewprocess(current_time);
+			Ready.update(SystemConfig.psg);
+			IOQueues.update(SystemConfig.psg);
+			MemQueue.update();	
 		}
 	}
 }

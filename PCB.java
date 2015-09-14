@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 
 public class PCB 
@@ -6,7 +8,7 @@ public class PCB
 	static int addNewEntry(InputEntry entry)
 	{
 		if (SystemConfig.max_procs>==entries.size())
-			return -1
+			return -1;
 		else 
 		{
 			Process proc = new Process(entry.start_time,entry.total_exec_time[],entry.io_module_num[],entry.io_module_time[],entry.mem_req[]);
@@ -20,7 +22,7 @@ public class PCB
 	static int addtoQueue(int index, int type)
 	{
 			if (type==0)
-				entries[i].chkforIO()
+				entries[i].chkforIO();
 			else if (type==1)
 			{
 				// we need to schedule the thing, so we check for memory
@@ -28,13 +30,13 @@ public class PCB
 				{
 					// we add to Ready queue
 					entries.get(index).state=3;	
-					Ready.enqueue(entries[index])
+					Ready.enqueue(entries[index]);
 				}
 				else 
 				{
 					// we add to memory waiting
 					entries.get(index).state=2;	
-					Memory.enqueue(enqueue[index])
+					Memory.enqueue(enqueue[index]);
 				}
 			}
 	}
