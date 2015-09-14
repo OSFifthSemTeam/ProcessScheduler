@@ -12,7 +12,7 @@ class SystemConfig
 
 class ReadJobs 
 	// this reads from the Jobs file, initializes the InputEntry 
-	// initializes only start_time, total_exec_time, name
+	// initializes only start_time, name
 	// initialize outputentry in the Output class
 
 class ReadModelFiles
