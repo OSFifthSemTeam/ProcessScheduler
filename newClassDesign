@@ -24,7 +24,7 @@ class RunSpec
 
 class IOSpec extends RunSpec
 	int time_req;
-	int io_module_time
+	int io_module_num;
 	// have a constructor here, remember to say super.type=1
 
 class CpuSpec extends RunSpec
