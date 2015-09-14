@@ -95,7 +95,8 @@ class PCB
 			check=entries[i].chkforIO()
 			if (check==1)
 				// we need to schedule the thing, so we check for memory
-				if (Memory.current_free_memory>=entries[index].specifications.head.mem_req)
+				current_spec = (CpuSpec) entries[index].specifications;
+				if (Memory.current_free_memory>=current_spec.head.mem_req)
 					// we add to Ready queue
 					Ready.enqueue(entries[index])
 				else 
@@ -120,7 +121,8 @@ class IOModuleEntry
 	update(int granularity) //updates the current_exec of the process at the head of the queue
 		/* 
 			proc.current_exec+=granularity;
-			if (proc.current_exec>=proc.specifications.head.time_req)
+			current_spec= (IOSpec)proc.specifications
+			if (proc.current_exec>=current_spec.head.time_req)
 				proc=dequeue()
 				proc.specifications=proc.specifications.getNext()
 				PCB.addtoQueue(proc.tableIndex, 0)
