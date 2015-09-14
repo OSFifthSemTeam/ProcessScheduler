@@ -19,14 +19,26 @@ class ReadModelFiles
 	// reads the processname from each InputEntry initialized from ReadJobs
 	// initializes io_module_num, io_module_time, mem_req
 
+class RunSpec
+	int type; // 0 for CpuSpec and 1 for IOSpec
+
+class IOSpec extends RunSpec
+	int time_req;
+	int io_module_time
+	// have a constructor here, remember to say super.type=1
+
+class CpuSpec extends RunSpec
+	int time_req;
+	int mem_req;
+	// have a constructor here, remember to say super.type=1
+
 class InputEntry
 	String pname;
 	int start_time;
-	int total_exec_time[];
-	int io_module_num[];
-	int io_module_time[];
-	int mem_req[];
+	LinkedList<RunSpec> reqs;
 	int exists; // this is 1 if it is in the PCB, 0 if it doesn't, -1 if it is done executing
+	
+
 
 class Output
 	int output_times[] // array of times at which output must be printed
@@ -47,31 +59,27 @@ class InputTable
 class Process
 	int pid;
 	int tableIndex;
-	int io_module_num[];
-	int io_module_time[];
-	int io_module_current_exec; // amount of time it spent in the module
-	int mem_req[];
 	int state;
-	int cpuIndex; // this talks about which index of mem_req and total_time_req we should consider 	
-	int ioIndex; // this will be the index of which io_module_time and io_module_num to consider for io_module_current_exec to compare with
-	int current_exec;
-	int total_time_req[];
-	// add your functions for initialization, I'm just writing init() here
+	LinkedList<RunSpec> specifications
 	init() 
 	/* state - -1 for execution done
 		   0 for running
 		   1 for waiting on I/O
 		   2 for waiting on memory 
 		   3 for Ready */
-	void chkforIO()
+	int chkforIO()
 		/* 
-			if (current_exec>=total_time_req[cpuindex])
+			// -1 - complete 0 - added to I/O 1 - needs to be added to CPU
 				current_exec=0
-				cpuindex++
-				if (ioIndex==io_module_num.length)
+				specifications=specifications.getNext()
+				if (specifications==null)
 					state=-1
-				else 
+					return -1
+				else if (specifications.head.type==1)
 					IOQueues.addnewProc(this)
+					return 0
+				else 
+					return 1
 		*/
 	
 
@@ -81,18 +89,22 @@ class PCB
 		/* also add to memory queue or IOqueue or ReadyQueue based on current system parameters */
 	static addtoQueue(int index, int type) 
 		/* 
-			type - 1 if it came from an I/O queue, 0 otherwise
 			//this should decide which queue to add to and call that respective queue's function
 			if (type==0)
-				entries[i].chkforIO()
-			else if (type==1)
+			{
+			check=entries[i].chkforIO()
+			if (check==1)
 				// we need to schedule the thing, so we check for memory
-				if (Memory.current_free_memory>=entries[index].mem_req[entries[index].cpuIndex])
+				if (Memory.current_free_memory>=entries[index].specifications.head.mem_req)
 					// we add to Ready queue
 					Ready.enqueue(entries[index])
 				else 
 					// we add to memory waiting 
-					Memory.enqueue(enqueue[index])
+					Memory.enqueue(entries[index])
+			}
+			else if (type==1)
+				Ready.enqueue(entries[index])
+				
 				
 		*/
 		
@@ -105,21 +117,20 @@ class IOModuleEntry
 	Queue<Process> waiting;
 	Queue<Process> done;
 	addnewProcess(Process obj) //adds a new thing to the queue
-	update(int granularity) //updates the io_module_current_exec of the process at the head of the queue
+	update(int granularity) //updates the current_exec of the process at the head of the queue
 		/* 
-			proc.io_module_current_exec+=granularity;
-			if (proc.io_module_current_exec>=proc.io_module_time)
+			proc.current_exec+=granularity;
+			if (proc.current_exec>=proc.specifications.head.time_req)
 				proc=dequeue()
-				proc.ioIndex++;
-				PCB.addtoQueue(proc.tableIndex, 1)
+				proc.specifications=proc.specifications.getNext()
+				PCB.addtoQueue(proc.tableIndex, 0)
 		*/
 	
 class IOQueues
 	static IOModuleEntry queues[]
 	static addNewProc(ProcessTableEntry proc)
 		/*
-		if (proc.io_module_num!=-1)
-			queues[proc.io_module_num].addnewProcess(proc);
+			queues[proc.specifications.head.io_module_num].addnewProcess(proc);
 		*/
 	static update(int psg)
 		/* for (i from 0 to queues.length)
@@ -132,10 +143,10 @@ class MemQueue
 	static update() 
 		/*
 			// traverse through the queue, for each element 	
-			if (current_free_memory>proc.mem_req[cpuIndex])
+			if (current_free_memory>=proc.specifications.head.mem_req)
 				proc=dequeue()
-				PCB.addtoQueue(proc.tableIndex,0)
-				updateCurrentFreeMem(proc.mem_req[cpuIndex], -1)
+				PCB.addtoQueue(proc.tableIndex,1)
+				updateCurrentFreeMem(proc.specifications.head.mem_req,-1)
 		*/
 	static updateCurrentFreeMem(int size, int incr) // if increment, incr = +1, else -1
 	
@@ -148,7 +159,7 @@ class Ready
 		/* 
 			// this guy dequeues the head of the queue to Running and enqueues Running to the Ready Queue
 			PCB.entries[running.tableIndex].current_exec+=psg
-			PCB.addtoQueue(running.tableIndex)
+			PCB.addtoQueue(running.tableIndex,1)
 			running = ReadyProcs.dequeue()
 		*/
 
@@ -165,5 +176,6 @@ class Main
 		InputTable.checkfornewprocess(current_time)
 		Ready.update(SystemConfig.psg)
 		IOQueues.update(SystemConfig.psg)
+		PCB.removeDoneProcesses()
 		Memory.update()	
 		*/
