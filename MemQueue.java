@@ -1,4 +1,3 @@
-package ProcessScheduler;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Iterator;
@@ -17,7 +16,7 @@ public class MemQueue {
 						
 			for(Process proc : waiting)
 			{
-				CPUSpec currcpuspec = (CPUSpec)proc.specifications.head;
+				CPUSpec currcpuspec = (CPUSpec)proc.specifications.getFirst();
 				if(current_free_memory>currcpuspec.mem_req)
 				{
 					waiting.remove(proc);

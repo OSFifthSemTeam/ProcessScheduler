@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Process 
 {
@@ -15,16 +16,16 @@ public class Process
 		specifications = entry.specifications;
 	}
 
-	void checkforIO()
+	int checkforIO()
 	{	   	
 		current_exec=0;
-		specifications=specifications.getNext();
+		specifications=specifications.remove(0);
 		if (specifications==null)
 		{
 			state=-1;
 			return -1;
 		}
-		else if (specifications.head.type==1)
+		else if (specifications.getFirst().type==1)
 		{
 			IOQueues.addnewProc(this);
 			return 0;

@@ -16,11 +16,11 @@ public class IOModuleEntry {
 	void update(int granularity)
 	{
 		waiting.element().current_exec+=granularity;
-		IOSpec curriospec = (IOSpec)waiting.element().specifications.head;
+		IOSpec curriospec = (IOSpec)waiting.element().specifications.getFirst();
 		if(waiting.element().current_exec>=curriospec.time_req)
 		{
 			Process proc = waiting.remove();
-			proc.specifications=proc.specifications.getNext();
+			proc.specifications.remove(0);
 			PCB.addtoQueue(proc.tableIndex,1);
 		}
 	}

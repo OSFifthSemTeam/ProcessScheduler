@@ -7,7 +7,7 @@ public class Ready {
 	static void enqueue(Process proc)
 	{
 		ReadyProcs.add(proc);
-		proc.curr_mem = proc.specifications.head.mem_req;
+		proc.curr_mem = proc.specifications.getFirst().mem_req;
 		MemQueue.updateCurrentFreeMem(proc.curr_mem, -1);
 	}
 	
