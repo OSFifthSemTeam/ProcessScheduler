@@ -1,2 +1,2 @@
 # ProcessScheduler
-An Simulation of how Process Scheduling will happen
+A Simulation of how Process Scheduling could happen
