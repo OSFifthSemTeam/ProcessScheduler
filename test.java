@@ -9,7 +9,6 @@ public class test
 		System.out.println("---------------------------------");
 		ConfigInput newconf = new ConfigInput();
 		newconf.readSysConfig();
-//		ReadJobs jobread = new ReadJobs();
 		ReadJobs.readJobFile();
 		System.out.println("---------------------------------");
 		ReadModelFiles.ReadModels();
