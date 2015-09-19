@@ -13,9 +13,11 @@ public class ReadModelFiles
 			for(InputEntry ip: InputTable.ipTable)
 			{
 				String checker;
-				String Ppath = ("C:\\zeeshan```\\");
+				String Ppath = ("C:\\Zeeshan```\\PES\\sem 5\\OS\\Assignment 2\\kvs input\\sample1\\");
+				
 				Ppath = Ppath.concat(ip.pname);
-				Ppath = Ppath.concat(".txt");
+				Ppath = Ppath.concat(".model");
+				System.out.println();
 				System.out.println("curr path is " + Ppath);
 				File readModule = new File(Ppath);
 				Scanner in = new Scanner(readModule);
@@ -23,38 +25,34 @@ public class ReadModelFiles
 					
 				{
 					 checker = in.next();
-					if(checker.equals("CPU"))
+					if(checker.equals("cpu"))
 					{
-						
-						CpuSpec newCpuEntry = new CpuSpec();
-						newCpuEntry.time_req = in.nextInt();
-						in.next();
-						newCpuEntry.mem_req = in.nextInt();
-						ip.reqs.add(newCpuEntry);
-						System.out.println("new line added in LL");
-						System.out.println("time req " + newCpuEntry.time_req);
-						System.out.println("mem req " + newCpuEntry.mem_req);
-						System.out.println(in.hasNext());
-						
 											
+						int time_req = in.nextInt();
+						in.next();
+						int mem_req = in.nextInt();
+						ip.add_cpuSpec(time_req, mem_req);
+						System.out.println("new line added in LL as a CpuSpec");
+						System.out.println("Does the Model file have any more lines? -  " + in.hasNext());
+																	
 						
 					}
 				
-					else if(checker.equals("IO"))
+					else if(checker.equals("io"))
 					{
 						
-						IOSpec newIOEntry = new IOSpec();
-						newIOEntry.io_module_num = in.nextInt();
-						newIOEntry.time_req = in.nextInt();
-						ip.reqs.add(newIOEntry);
-						System.out.println("new line added in LL");
-						System.out.println("io req " + newIOEntry.io_module_num);
-						System.out.println("time req " + newIOEntry.time_req);
+						int io_module_num = in.nextInt();
+						int time_req = in.nextInt();
+						ip.add_IOspec(io_module_num, time_req);
+						
+						System.out.println("new line added in LL as an IOSpec");
+						System.out.println("Does the Model file have any more lines? -  " + in.hasNext());
 						
 					}
 				}
 				in.close();
-			
+				System.out.println("---------------------------------");
+				
 			}
 			
 		}

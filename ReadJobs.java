@@ -1,8 +1,11 @@
 import java.io.File;
+
 import java.util.Scanner;
 
 public class ReadJobs
 {
+	
+
 	public static void readJobFile()
 	{
 		try
@@ -10,11 +13,17 @@ public class ReadJobs
 			
 			File jobfile = new File("C:\\zeeshan```\\jobfile.txt"); // change the path
 			Scanner in = new Scanner(jobfile);
-			//System.out.println("Reading this file");
+			
+			String checker;
 			while(in.hasNext())
 			{
-			//	System.out.println("Reading this file");
-				if(in.next().equals("SUBMIT"))
+				checker = in.next();
+				if(checker.equals("SUBMIT_JOB"))
+					System.out.println("The command encountered is " + checker);
+				else
+					System.out.println("The command encountered is " + in.nextLine());
+			
+				if(checker.equals("SUBMIT_JOB"))
 				{
 					//System.out.println("Reading this file");
 					InputEntry newEntry = new InputEntry();
@@ -23,12 +32,15 @@ public class ReadJobs
 					InputTable.add(newEntry);
 					System.out.println("Added one item");
 				}
+				
+				else if(checker.equals("PRINT PROCESS_TABLE"))
+				{}
 			}
 			in.close();
 		}
 		catch (Exception e)
 		{
-			System.out.println("Error reading from job file.Failed in adding items"+ e);
+			System.out.println("Failed in adding items"+ e);
 		}
 		
 	}

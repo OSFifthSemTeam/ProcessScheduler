@@ -5,6 +5,7 @@ public class InputTable
 	public static ArrayList<InputEntry> ipTable = new ArrayList<InputEntry>();
 
 	public static void add(InputEntry newEntry) {
+		// TODO Auto-generated method stub
 		ipTable.add(newEntry);
 		
 	}
@@ -14,7 +15,15 @@ public class InputTable
 		{
 			System.out.println(ip.pname);
 			System.out.println(ip.start_time);
-			System.out.println("printed one item");
+			for(RunSpec i: ip.reqs)
+				{
+								
+					System.out.println(i.type + " - " + i);
+				
+				
+				}
+			System.out.println(">>printed one item");
+			System.out.println();
 		}
 	}
 	
