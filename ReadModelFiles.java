@@ -53,12 +53,14 @@ public class ReadModelFiles
 						
 					}
 				}
+				in.close();
 			
 			}
+			
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println("Error while reading model files");
 		}
 		
 	}

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class IOQueues {
 	static IOModuleEntry queues[] = new IOModuleEntry[SystemConfig.numIO];
 	

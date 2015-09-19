@@ -1,6 +1,5 @@
-import java.util.Queue;
 import java.util.LinkedList;
-import java.util.Iterator;
+
 
 public class MemQueue {
 
@@ -16,11 +15,11 @@ public class MemQueue {
 						
 			for(Process proc : waiting)
 			{
-				CPUSpec currcpuspec = (CPUSpec)proc.specifications.getFirst();
+				CpuSpec currcpuspec = (CpuSpec)proc.specifications.getFirst();
 				if(current_free_memory>currcpuspec.mem_req)
 				{
 					waiting.remove(proc);
-					PCB.addToQueue(proc.tableIndex,0);
+					PCB.addtoQueue(proc.tableIndex,0);
 					updateCurrentFreeMem(currcpuspec.mem_req,-1);
 					break;
 				}

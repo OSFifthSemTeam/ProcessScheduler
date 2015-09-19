@@ -8,5 +8,11 @@ public class IOSpec extends RunSpec {
 		time_req=time;
 		io_module_num=module;
 	}
+	public IOSpec()
+	{
+		super(1);
+		time_req=-1;
+		io_module_num=-1;
+	}
 
 }

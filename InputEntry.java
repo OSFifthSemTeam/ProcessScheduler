@@ -1,12 +1,11 @@
 import java.util.*;
-import java.io.*;
 
 public class InputEntry 
 {
 	String pname;
 	int start_time;
 	LinkedList<RunSpec> reqs = new LinkedList<RunSpec>(); 
-	int exists;
+	int exists=0;
 
 	void add_cpuSpec(int time, int mem)
 	{

@@ -8,18 +8,18 @@ public class Process
 	int current_exec;
 	int curr_mem;
 	LinkedList<RunSpec> specifications;
-	void Process(InputEntry entry)
+	public Process(InputEntry entry)
 	{
 		pid=0;
 		state=-2;
 		current_exec=0;
-		specifications = entry.specifications;
+		specifications = entry.reqs;
 	}
 
 	int checkforIO()
 	{	   	
 		current_exec=0;
-		specifications=specifications.remove(0);
+		specifications.remove(0);
 		if (specifications==null)
 		{
 			state=-1;
@@ -27,7 +27,7 @@ public class Process
 		}
 		else if (specifications.getFirst().type==1)
 		{
-			IOQueues.addnewProc(this);
+			IOQueues.addNewProc(this);
 			return 0;
 		}
 		else 

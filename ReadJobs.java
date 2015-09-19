@@ -1,5 +1,4 @@
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadJobs
@@ -25,10 +24,11 @@ public class ReadJobs
 					System.out.println("Added one item");
 				}
 			}
+			in.close();
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed in adding items"+ e);
+			System.out.println("Error reading from job file.Failed in adding items"+ e);
 		}
 		
 	}

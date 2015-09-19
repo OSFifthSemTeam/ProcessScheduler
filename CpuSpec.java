@@ -8,5 +8,11 @@ public class CpuSpec extends RunSpec {
 		time_req=time;
 		mem_req=mem;
 	}
+	public CpuSpec()
+	{
+		super(0);
+		time_req=-1;
+		mem_req=-1;
+	}
 
 }
