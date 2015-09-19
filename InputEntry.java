@@ -14,12 +14,10 @@ public class InputEntry
 		reqs.add(obj);
 	}
 
-
 	void add_IOspec(int num, int time)
 	{	
 		RunSpec obj = new IOSpec(num, time);
 		reqs.add(obj);
 	}
 		
-	
 }

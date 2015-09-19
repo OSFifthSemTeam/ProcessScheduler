@@ -1,4 +1,3 @@
-
 import java.util.Queue;
 import java.util.LinkedList;
 public class Ready {
@@ -8,6 +7,8 @@ public class Ready {
 	static void enqueue(Process proc)
 	{
 		ReadyProcs.add(proc);
+		proc.curr_mem = proc.specifications.head.mem_req;
+		MemQueue.updateCurrentFreeMem(proc.curr_mem, -1);
 	}
 	
 	static void update(int psg)
@@ -16,6 +17,6 @@ public class Ready {
 		PCB.addtoQueue(running);
 		running = ReadyProcs.remove();
 		//changing the state of the guy after putting him to run
-		PCB.entries[running.tableIndex].state=0;
+		PCB.entries.get(running.tableIndex).state=0;
 	}
 }

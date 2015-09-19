@@ -5,6 +5,7 @@ public class Process
 	int tableIndex;
 	int state;
 	int current_exec;
+	int curr_mem;
 	LinkedList<RunSpec> specifications;
 	void Process(InputEntry entry)
 	{
@@ -16,16 +17,20 @@ public class Process
 
 	void checkforIO()
 	{	   	
-		current_exec=0
-		specifications=specifications.getNext()
+		current_exec=0;
+		specifications=specifications.getNext();
 		if (specifications==null)
-			state=-1
-			return -1
+		{
+			state=-1;
+			return -1;
+		}
 		else if (specifications.head.type==1)
-			IOQueues.addnewProc(this)
-			return 0
+		{
+			IOQueues.addnewProc(this);
+			return 0;
+		}
 		else 
-			return 1
+			return 1;
 	}
 
 }

@@ -5,23 +5,24 @@ import java.util.Iterator;
 
 public class MemQueue {
 
-		static LinkedList <ProcessTableEntry> waiting = new LinkedList<Process>();
+		static LinkedList <Process> waiting = new LinkedList<Process>();
 		static int current_free_memory;
 		
-		static void enqueue(ProcessTableEntry proc)
+		static void enqueue(Process proc)
 		{
 			waiting.addLast(proc);
 		}
 		
 		static void update(){
 						
-			for(ProcessTableEntry proc : waiting)
+			for(Process proc : waiting)
 			{
-				if(current_free_memory>proc.mem_req[proc.cpuIndex])
+				CPUSpec currcpuspec = (CPUSpec)proc.specifications.head;
+				if(current_free_memory>currcpuspec.mem_req)
 				{
 					waiting.remove(proc);
 					PCB.addToQueue(proc.tableIndex,0);
-					updateCurrentFreeMem(proc.mem_req[proc.cpuIndex],-1);
+					updateCurrentFreeMem(currcpuspec.mem_req,-1);
 					break;
 				}
 			}
@@ -30,7 +31,7 @@ public class MemQueue {
 		static void updateCurrentFreeMem(int size,int incr)
 		{
 			if(incr==1)
-				current_free)memory+=size;
+				current_free_memory+=size;
 			else if(incr==-1)
 				current_free_memory-=size;
 			else

@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 
 public class PCB 
@@ -7,7 +5,7 @@ public class PCB
 	static List<Process> entries;
 	static int addNewEntry(InputEntry entry)
 	{
-		if (SystemConfig.max_procs>==entries.size())
+		if (SystemConfig.max_procs>=entries.size())
 			return -1;
 		else 
 		{
@@ -23,11 +21,12 @@ public class PCB
 	{
 			if (type==0)
 			{
-			check=entries[i].chkforIO()
+			check=entries[i].chkforIO();
+			MemQueue.updateCurrentFreeMem(entries[index].curr_mem,1);
 			if (check==1)
 				// we need to schedule the thing, so we check for memory
 				current_spec = (CpuSpec) entries[index].specifications;
-				if (Memory.current_free_memory>=current_spec.head.mem_req)
+				if (MemQueue.current_free_memory>=current_spec.head.mem_req)
 				{
 					// we add to Ready queue
 					entries.get(index).state=3;	
@@ -37,11 +36,11 @@ public class PCB
 				{
 					// we add to memory waiting
 					entries.get(index).state=2;	
-					Memory.enqueue(enqueue[index]);
+					MemQueue.enqueue(enqueue[index]);
 				}
 			}
 			else if (type==1)
-				Ready.enqueue(entries[index])
+				Ready.enqueue(entries[index]);
 	}
 
 	static void removeDoneProcesses()

@@ -5,7 +5,8 @@ public class IOQueues {
 	
 	static void addNewProc(Process proc)
 	{
-		queues[proc.io_module_num[proc.ioIndex]].addNewProcess(proc);
+		IOSpec curriospec = (IOSpec)proc.specifications.head;
+		queues[curriospec.io_module_num].addNewProcess(proc);
 	}
 	static void update(int psg)
 	{

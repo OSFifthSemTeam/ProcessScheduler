@@ -15,11 +15,12 @@ public class IOModuleEntry {
 	}
 	void update(int granularity)
 	{
-		waiting.element().io_module_current_exec+=granularity;
-		if(waiting.element().io_module_current_exec>=waiting.element().io_module_time[waiting.element().ioIndex])
+		waiting.element().current_exec+=granularity;
+		IOSpec curriospec = (IOSpec)waiting.element().specifications.head;
+		if(waiting.element().current_exec>=curriospec.time_req)
 		{
 			Process proc = waiting.remove();
-			proc.ioIndex++;
+			proc.specifications=proc.specifications.getNext();
 			PCB.addtoQueue(proc.tableIndex,1);
 		}
 	}
