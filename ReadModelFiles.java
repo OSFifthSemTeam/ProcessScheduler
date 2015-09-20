@@ -5,7 +5,7 @@ import java.util.*;
 public class ReadModelFiles 
 {
 
-	public static void ReadModels()
+	public static void ReadModels(String inputPpath)
 	{
 		try
 		{
@@ -13,7 +13,7 @@ public class ReadModelFiles
 			for(InputEntry ip: InputTable.ipTable)
 			{
 				String checker;
-				String Ppath = ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/");
+				String Ppath = inputPpath;
 				
 				Ppath = Ppath.concat(ip.pname);
 				Ppath = Ppath.concat(".model");

@@ -6,13 +6,13 @@ public class ReadJobs
 {
 	
 
-	public static void readJobFile()
+	public static void readJobFile(File jobfile)
 	{
 		try
 		{
 			
-			File jobfile = new File ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/test1.job");// change the path
 			Scanner in = new Scanner(jobfile);
+			int total_jobs_submitted = 0;
 			
 			String checker;
 			while(in.hasNext())
@@ -21,7 +21,7 @@ public class ReadJobs
 				if(checker.equals("SUBMIT_JOB"))
 					System.out.println("The command encountered is " + checker);
 				else
-					System.out.println("The command encountered is " + in.nextLine());
+					System.out.println("The command encountered is " + checker);
 			
 				if(checker.equals("SUBMIT_JOB"))
 				{
@@ -31,12 +31,18 @@ public class ReadJobs
 					newEntry.start_time = in.nextInt();
 					InputTable.add(newEntry);
 					System.out.println("Added one item");
+					total_jobs_submitted+=1;
 				}
 				
-				else if(checker.equals("PRINT PROCESS_TABLE"))
-				{}
+				else if(checker.equals("PROCESS_TABLE"))
+				{
+					int output_time = in.nextInt();
+					System.out.println(output_time);
+					OutputTable.addNewOutputEntry(output_time);
+				}
 			}
 			in.close();
+			SystemConfig.total_jobs_submitted=total_jobs_submitted;
 		}
 		catch (Exception e)
 		{

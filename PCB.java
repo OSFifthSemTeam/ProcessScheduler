@@ -128,7 +128,10 @@ public class PCB
 
 	static void printProcessTable()
 	{
-		//TODO
+		for(Process proc:entries){
+			proc.printDetailsforProcTable();
+		}
+		
 	}
 
 }
