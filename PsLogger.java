@@ -7,7 +7,7 @@ import java.io.*;
 public class PsLogger 
 {
 
-	static File opfile = new File("C:\\zeeshan```\\op.txt");
+	static File opfile = new File("Z:\\OS assignment progs\\Assignment 2\\Code\\Output\\Output.txt");
 	
 	
 	public static void printMethod(String str)
