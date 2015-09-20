@@ -31,7 +31,7 @@ public class Main
 			InputTable.display();
 		}
 		int current_time=0;
-		while (current_time<100)
+		while (PCB.numDone<2)
 		{
 			System.out.println("CURRENT TIME - " + current_time);
 			InputTable.checkfornewprocess(current_time);
@@ -39,6 +39,7 @@ public class Main
 			IOQueues.update(SystemConfig.PSG);
 			MemQueue.update();	
 			current_time+=SystemConfig.PSG;
+			PCB.removeDoneProcesses();
 		}
 	}
 }

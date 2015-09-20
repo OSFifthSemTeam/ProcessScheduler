@@ -20,7 +20,7 @@ public class Process
 	int checkforIO()
 	{	   	
 		current_exec=0;
-		if (specifications==null)
+		if (specifications.size()==0)
 		{
 			state=-1;
 			return -1;

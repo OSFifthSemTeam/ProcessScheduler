@@ -3,6 +3,11 @@ import java.util.*;
 public class PCB 
 {
 	static List<Process> entries = new ArrayList<Process>();
+	static int numDone;
+	static 
+	{
+		numDone=0;
+	}
 	static int addNewEntry(InputEntry entry)
 	{
 		if (SystemConfig.max_proc<=entries.size())
@@ -45,22 +50,24 @@ public class PCB
 				/* check if there is any I/O required */
 				int check=entries.get(index).checkforIO();
 				if (check!=0)
-				System.out.println("There was no IO required for index " + index);
-				// we need to schedule the thing, so we check for memory
-				CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
-				if (MemQueue.current_free_memory>=current_spec.mem_req)
 				{
-					System.out.println("There was free memory, so we put it in Ready queue");
-					// we add to Ready queue
-					entries.get(index).state=3;	
-					Ready.enqueue(entries.get(index));
-				}
-				else 
-				{
-					System.out.println("There was no free memory, so we put it in memory queue");
-					// we add to memory waiting
-					entries.get(index).state=2;	
-					MemQueue.enqueue(entries.get(index));
+					System.out.println("There was no IO required for index " + index);
+					// we need to schedule the thing, so we check for memory
+					CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
+					if (MemQueue.current_free_memory>=current_spec.mem_req)
+					{
+						System.out.println("There was free memory, so we put it in Ready queue");
+						// we add to Ready queue
+						entries.get(index).state=3;	
+						Ready.enqueue(entries.get(index));
+					}
+					else 
+					{
+						System.out.println("There was no free memory, so we put it in memory queue");
+						// we add to memory waiting
+						entries.get(index).state=2;	
+						MemQueue.enqueue(entries.get(index));
+					}
 				}
 			}
 			/* if the current specification isnt done */
@@ -81,22 +88,24 @@ public class PCB
 				/* check if there is any I/O required */
 				int check=entries.get(index).checkforIO();
 				if (check!=0)
-				System.out.println("There was no IO required for index " + index);
-				// we need to schedule the thing, so we check for memory
-				CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
-				if (MemQueue.current_free_memory>=current_spec.mem_req)
 				{
-					System.out.println("There was free memory, so we put it in Ready queue");
-					// we add to Ready queue
-					entries.get(index).state=3;	
-					Ready.enqueue(entries.get(index));
-				}
-				else 
-				{
-					System.out.println("There was no free memory, so we put it in memory queue");
-					// we add to memory waiting
-					entries.get(index).state=2;	
-					MemQueue.enqueue(entries.get(index));
+					System.out.println("There was no IO required for index " + index);
+					// we need to schedule the thing, so we check for memory
+					CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
+					if (MemQueue.current_free_memory>=current_spec.mem_req)
+					{
+						System.out.println("There was free memory, so we put it in Ready queue");
+						// we add to Ready queue
+						entries.get(index).state=3;	
+						Ready.enqueue(entries.get(index));
+					}
+					else 
+					{
+						System.out.println("There was no free memory, so we put it in memory queue");
+						// we add to memory waiting
+						entries.get(index).state=2;	
+						MemQueue.enqueue(entries.get(index));
+					}
 				}
 			}
 		}
@@ -108,7 +117,12 @@ public class PCB
 		for (Process p: entries)
 		{
 			if (p.state==-1)
+			{
+				System.out.println("REMOVING a process. Details -");
+				p.printDetails();
+				numDone++;
 				entries.remove(p);
+			}
 		}
 	}
 
