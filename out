@@ -1,0 +1,108 @@
+Starts here...
+---------------------------------
+The command encountered is SUBMIT_JOB
+Added one item
+The command encountered is  PROCESS_TABLE 44
+The command encountered is SUBMIT_JOB
+Added one item
+The command encountered is SUBMIT_JOB
+Added one item
+The command encountered is  PROCESS_TABLE 90
+---------------------------------
+
+curr path is /home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/compute_pi.model
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as an IOSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  false
+---------------------------------
+
+curr path is /home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/editor.model
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as an IOSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as an IOSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  false
+---------------------------------
+
+curr path is /home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/editor.model
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as an IOSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  true
+new line added in LL as an IOSpec
+Does the Model file have any more lines? -  true
+new line added in LL as a CpuSpec
+Does the Model file have any more lines? -  false
+---------------------------------
+---------------------------------
+max proc = 20
+PSG = 10
+numIO = 3
+memory = 200
+---------------------------------
+compute_pi
+3
+0 - CpuSpec [time_req=30, mem_req=10]
+0 - CpuSpec [time_req=40, mem_req=50]
+1 - IOSpec [time_req=100, io_module_num=3]
+0 - CpuSpec [time_req=500, mem_req=100]
+>>printed one item
+
+editor
+22
+0 - CpuSpec [time_req=60, mem_req=20]
+1 - IOSpec [time_req=50, io_module_num=1]
+0 - CpuSpec [time_req=200, mem_req=20]
+1 - IOSpec [time_req=45, io_module_num=2]
+0 - CpuSpec [time_req=30, mem_req=30]
+>>printed one item
+
+editor
+63
+0 - CpuSpec [time_req=60, mem_req=20]
+1 - IOSpec [time_req=50, io_module_num=1]
+0 - CpuSpec [time_req=200, mem_req=20]
+1 - IOSpec [time_req=45, io_module_num=2]
+0 - CpuSpec [time_req=30, mem_req=30]
+>>printed one item
+
+Came to update the Ready Queue
+Allocating queues numIO is 3
+Allocating waiting queue in IOModuleEntry
+1
+Allocating waiting queue in IOModuleEntry
+1
+Allocating waiting queue in IOModuleEntry
+1
+Allocating waiting queue in IOModuleEntry
+1
+Found a new entry to add to PCB
+In addtoQueue for index 0 type 0
+There was no IO required for index 0
+There was free memory, so we put it in Ready queue
+Adding succeeded
+Came to update the Ready Queue
+Came to update the Ready Queue
+In addtoQueue for index 0 type 0
+Adding 0 to an IOQueue
+Found a new entry to add to PCB
+In addtoQueue for index 1 type 0
+Adding 1 to an IOQueue
+Adding succeeded
+Came to update the Ready Queue
+In addtoQueue for index 0 type 0
+There was no IO required for index 0
+There was free memory, so we put it in Ready queue
+Something went wrong in update in IOModuleEntry

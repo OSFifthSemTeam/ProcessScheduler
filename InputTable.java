@@ -32,9 +32,13 @@ public class InputTable
 		for(InputEntry ip: ipTable){
 			if(ip.start_time<=current_time && ip.exists==0)
 			{
+				System.out.println("Found a new entry to add to PCB");
 				int success = PCB.addNewEntry(ip);
 				if(success==0)
+				{
+					System.out.println("Adding succeeded");
 					ip.exists=1;
+				}
 			}
 		}
 	}

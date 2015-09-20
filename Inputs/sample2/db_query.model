@@ -1,0 +1,18 @@
+cpu 30 mem 30
+cpu 102 mem 55
+io 3 100
+cpu 10 mem 55
+io 3 40
+cpu 10 mem 55
+io 3 40
+cpu 10 mem 65
+io 3 40
+cpu 10 mem 75
+io 3 40
+cpu 10 mem 85
+io 3 40
+cpu 10 mem 95
+io 3 40
+cpu 10 mem 95
+io 2 200
+cpu 30 mem 10

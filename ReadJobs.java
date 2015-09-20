@@ -11,7 +11,7 @@ public class ReadJobs
 		try
 		{
 			
-			File jobfile = new File("C:\\zeeshan```\\jobfile.txt"); // change the path
+			File jobfile = new File ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/test1.job");// change the path
 			Scanner in = new Scanner(jobfile);
 			
 			String checker;

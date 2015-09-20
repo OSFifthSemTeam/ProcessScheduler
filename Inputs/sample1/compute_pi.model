@@ -1,0 +1,4 @@
+cpu 30 mem 10
+cpu 40 mem 50
+io 3 100
+cpu 500 mem 100

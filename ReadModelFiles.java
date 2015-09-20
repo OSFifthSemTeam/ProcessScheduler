@@ -13,7 +13,7 @@ public class ReadModelFiles
 			for(InputEntry ip: InputTable.ipTable)
 			{
 				String checker;
-				String Ppath = ("C:\\Zeeshan```\\PES\\sem 5\\OS\\Assignment 2\\kvs input\\sample1\\");
+				String Ppath = ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/");
 				
 				Ppath = Ppath.concat(ip.pname);
 				Ppath = Ppath.concat(".model");
@@ -43,7 +43,7 @@ public class ReadModelFiles
 						
 						int io_module_num = in.nextInt();
 						int time_req = in.nextInt();
-						ip.add_IOspec(io_module_num, time_req);
+						ip.add_IOspec(time_req,io_module_num );
 						
 						System.out.println("new line added in LL as an IOSpec");
 						System.out.println("Does the Model file have any more lines? -  " + in.hasNext());

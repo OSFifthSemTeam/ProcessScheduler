@@ -9,7 +9,7 @@ public class ConfigInput
 	{	
 		try
 		{
-			File ipfile = new File("C:\\zeeshan```\\ipfile.txt");
+			File ipfile = new File("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/simulator_config");
 			Scanner in = new Scanner(ipfile);
 			String extractor,extracted;
 			while(in.hasNext())

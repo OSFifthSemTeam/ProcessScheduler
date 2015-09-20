@@ -14,10 +14,21 @@ public class Ready {
 	
 	static void update(int psg)
 	{
-		PCB.entries.get(running.tableIndex).current_exec+=psg;
-		PCB.addtoQueue(running.tableIndex,0);
-		running = ReadyProcs.remove();
-		//changing the state of the guy after putting him to run
-		PCB.entries.get(running.tableIndex).state=0;
+		System.out.println("Came to update the Ready Queue");	
+		if (running!=null)
+		{
+			PCB.entries.get(running.tableIndex).current_exec+=psg;
+			PCB.addtoQueue(running.tableIndex,0);
+		}
+		try
+		{	
+			running = ReadyProcs.remove();
+			//changing the state of the guy after putting him to run
+			PCB.entries.get(running.tableIndex).state=0;
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 }

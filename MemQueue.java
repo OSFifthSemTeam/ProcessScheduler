@@ -5,6 +5,10 @@ public class MemQueue {
 
 		static LinkedList <Process> waiting = new LinkedList<Process>();
 		static int current_free_memory;
+		static 
+		{
+			current_free_memory=SystemConfig.memory;
+		}
 		
 		static void enqueue(Process proc)
 		{
