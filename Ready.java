@@ -31,14 +31,7 @@ public class Ready {
 			}
 			
 			PCB.entries.get(running.tableIndex).current_exec+=psg;
-			System.out.println("Current_exec after incrementing" + PCB.entries.get(running.tableIndex).current_exec);
-			if (PCB.entries.get(running.tableIndex).current_exec!=running.current_exec)
-				System.out.println("INCREMENT DID NOT WORK!!");
-			else 
-				System.out.println("running.current_exec " + running.current_exec + " from pcb " + PCB.entries.get(running.tableIndex).current_exec);
 			PCB.addtoQueue(running.tableIndex,0);
-			System.out.println("After incrementing the current_exec of running process and adding it to the queue");
-			running.printDetails();
 		}
 		try
 		{	

@@ -22,6 +22,7 @@ public class Process
 		current_exec=0;
 		if (specifications.size()==0)
 		{
+			MemQueue.updateCurrentFreeMem(curr_mem, 1);
 			state=-1;
 			return -1;
 		}

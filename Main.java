@@ -8,9 +8,9 @@ public class Main
 	{
 		boolean debug=true;
 		
-		File sysconfigfile = new File("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\simulator_config"); //Sysconfig file
-		File jobfile = new File ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\test1.job");// Job file
-		String Modelfilepath = ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\"); //Path for model file directory
+		File sysconfigfile = new File("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/simulator_config");
+		File jobfile = new File ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/test1.job");
+		String Modelfilepath = ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/");
 		
 		/* Call 
 		ConfigInput

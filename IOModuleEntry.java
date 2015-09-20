@@ -6,7 +6,6 @@ public class IOModuleEntry {
 	int made;
 	IOModuleEntry()
 	{
-		System.out.println("Creating IOModuleEntry");
 		waiting = new LinkedList<Process>();
 		made=1;	
 	}
@@ -35,6 +34,7 @@ public class IOModuleEntry {
 					if (proc.specifications.getFirst()==null)
 					{
 						System.out.println(proc.pid + " finished ");
+						MemQueue.updateCurrentFreeMem(proc.curr_mem,1);
 						proc.state=-1;
 					}
 					PCB.addtoQueue(proc.tableIndex,0);
