@@ -26,6 +26,7 @@ public class IOModuleEntry {
 			if (waiting.size()!=0)
 			{
 				waiting.element().current_exec+=granularity;
+				waiting.element().printDetails();
 				IOSpec curriospec = (IOSpec)waiting.element().specifications.getFirst();
 				if(waiting.element().current_exec>=curriospec.time_req)
 				{
@@ -36,7 +37,7 @@ public class IOModuleEntry {
 						System.out.println(proc.pid + " finished ");
 						proc.state=-1;
 					}
-					PCB.addtoQueue(proc.tableIndex,1);
+					PCB.addtoQueue(proc.tableIndex,0);
 				}
 			}
 			else 

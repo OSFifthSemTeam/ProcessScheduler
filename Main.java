@@ -33,6 +33,7 @@ public class Main
 		int current_time=0;
 		while (current_time<100)
 		{
+			System.out.println("CURRENT TIME - " + current_time);
 			InputTable.checkfornewprocess(current_time);
 			Ready.update(SystemConfig.PSG);
 			IOQueues.update(SystemConfig.PSG);

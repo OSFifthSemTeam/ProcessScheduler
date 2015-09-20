@@ -17,10 +17,7 @@ public class InputTable
 			System.out.println(ip.start_time);
 			for(RunSpec i: ip.reqs)
 				{
-								
 					System.out.println(i.type + " - " + i);
-				
-				
 				}
 			System.out.println(">>printed one item");
 			System.out.println();

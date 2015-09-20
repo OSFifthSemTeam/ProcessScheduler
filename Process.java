@@ -20,7 +20,6 @@ public class Process
 	int checkforIO()
 	{	   	
 		current_exec=0;
-		specifications.remove(0);
 		if (specifications==null)
 		{
 			state=-1;
@@ -36,4 +35,16 @@ public class Process
 			return 1;
 	}
 
+	void printDetails()
+	{
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("PID - " + pid + " index " + tableIndex + " state " + state);
+		System.out.println("Specifications");
+		for(RunSpec i: specifications)
+		{
+			System.out.println(i.type + " - " + i);
+		}
+		System.out.println("curr_exec " + current_exec + " curr_mem " + curr_mem);
+		System.out.println("-----------------------------------------------------------");
+	}
 }

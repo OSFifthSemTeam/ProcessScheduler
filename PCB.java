@@ -15,7 +15,10 @@ public class PCB
 			Process proc = new Process(entry);
 			entries.add(proc);
 			entries.get(entries.size()-1).tableIndex = entries.size()-1;
+			System.out.println("Before adding to queue");
+			proc.printDetails();
 			addtoQueue(proc.tableIndex,0);
+			proc.printDetails();
 			return 0;
 		}
 	}	
@@ -23,16 +26,64 @@ public class PCB
 	static void addtoQueue(int index, int type)
 	{
 		System.out.println("In addtoQueue for index " + index + " type " + type);
-		CpuSpec current_spec;
-		if (type==0)
+		// there are 2 possibilities here
+		/*
+		the thing finished it's current specification and needs to move to the next specification
+		the thing hasnt finished it's current specification 
+		*/
+		/* checking if it finished it's current specification */
+		Process current = entries.get(index);
+		if (current.specifications.getFirst().type==0) // this means it's in CPU
 		{
-			int check=entries.get(index).checkforIO();
-			MemQueue.updateCurrentFreeMem(entries.get(index).curr_mem,1);
-			if (check==1)
+			CpuSpec currcpu = (CpuSpec) current.specifications.getFirst();
+			/* checking if the current specification is done */
+			if (current.current_exec>=currcpu.time_req)
 			{
+				current.current_exec=0;
+				current.specifications.remove(0);
+				MemQueue.updateCurrentFreeMem(entries.get(index).curr_mem,1);
+				/* check if there is any I/O required */
+				int check=entries.get(index).checkforIO();
+				if (check!=0)
 				System.out.println("There was no IO required for index " + index);
-			// we need to schedule the thing, so we check for memory
-				current_spec = (CpuSpec)entries.get(index).specifications.element();
+				// we need to schedule the thing, so we check for memory
+				CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
+				if (MemQueue.current_free_memory>=current_spec.mem_req)
+				{
+					System.out.println("There was free memory, so we put it in Ready queue");
+					// we add to Ready queue
+					entries.get(index).state=3;	
+					Ready.enqueue(entries.get(index));
+				}
+				else 
+				{
+					System.out.println("There was no free memory, so we put it in memory queue");
+					// we add to memory waiting
+					entries.get(index).state=2;	
+					MemQueue.enqueue(entries.get(index));
+				}
+			}
+			/* if the current specification isnt done */
+			else 
+			{
+				Ready.enqueue(current);	
+			}
+		}
+		else if (current.specifications.getFirst().type==1) // this means it's in I/O
+		{
+			IOSpec currio= (IOSpec) current.specifications.getFirst();
+			/* checking if the current specification is done */
+			if (current.current_exec>=currio.time_req)
+			{
+				current.current_exec=0;
+				current.specifications.remove(0);
+				MemQueue.updateCurrentFreeMem(entries.get(index).curr_mem,1);
+				/* check if there is any I/O required */
+				int check=entries.get(index).checkforIO();
+				if (check!=0)
+				System.out.println("There was no IO required for index " + index);
+				// we need to schedule the thing, so we check for memory
+				CpuSpec current_spec = (CpuSpec)entries.get(index).specifications.element();
 				if (MemQueue.current_free_memory>=current_spec.mem_req)
 				{
 					System.out.println("There was free memory, so we put it in Ready queue");
@@ -49,8 +100,7 @@ public class PCB
 				}
 			}
 		}
-		else if (type==1)
-			Ready.enqueue(entries.get(index));
+
 	}
 
 	static void removeDoneProcesses()
