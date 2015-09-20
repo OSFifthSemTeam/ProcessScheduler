@@ -49,7 +49,7 @@ public class PCB
 				MemQueue.updateCurrentFreeMem(entries.get(index).curr_mem,1);
 				/* check if there is any I/O required */
 				int check=entries.get(index).checkforIO();
-				if (check!=0)
+				if (check!=0 && current.specifications.size()!=0)
 				{
 					System.out.println("There was no IO required for index " + index);
 					// we need to schedule the thing, so we check for memory
@@ -87,7 +87,7 @@ public class PCB
 				MemQueue.updateCurrentFreeMem(entries.get(index).curr_mem,1);
 				/* check if there is any I/O required */
 				int check=entries.get(index).checkforIO();
-				if (check!=0)
+				if (check!=0 && current.specifications.size()!=0)
 				{
 					System.out.println("There was no IO required for index " + index);
 					// we need to schedule the thing, so we check for memory
@@ -114,15 +114,30 @@ public class PCB
 
 	static void removeDoneProcesses()
 	{
+		ArrayList<Integer> rems = new ArrayList<Integer>();
 		for (Process p: entries)
 		{
 			if (p.state==-1)
 			{
-				System.out.println("REMOVING a process. Details -");
-				p.printDetails();
+				p.state=-3;
+				rems.add(p.tableIndex);
 				numDone++;
-				entries.remove(p);
 			}
+		}
+		for (Integer i: rems)
+		{
+			System.out.println("REMOVING a process. Details -");
+			entries.get(i).printDetails();
+			entries.remove(i);
+		}
+		for (Process p: entries)
+		{	
+			p.tableIndex=entries.indexOf(p);
+		} 
+		System.out.println("Printing contents of PCB after deleting");
+		for (Process p: entries)
+		{	
+			p.printDetails();
 		}
 	}
 

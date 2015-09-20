@@ -6,6 +6,7 @@ public class Ready {
 	
 	static void enqueue(Process proc)
 	{
+		proc.state=3;
 		ReadyProcs.add(proc);
 		CpuSpec spec_head = (CpuSpec)proc.specifications.element();
 		proc.curr_mem = spec_head.mem_req;
