@@ -1,7 +1,9 @@
 
 import java.io.*;
 
+/*	Use PsLogger.printMethod(*your string*); to print to the file instead of the console.
 
+*/
 public class PsLogger 
 {
 
