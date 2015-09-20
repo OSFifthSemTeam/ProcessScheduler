@@ -114,31 +114,25 @@ public class PCB
 
 	static void removeDoneProcesses()
 	{
-		ArrayList<Integer> rems = new ArrayList<Integer>();
-		for (Process p: entries)
+		if(entries.size()==0)
+			return;
+		
+		System.out.println("Checking for done processes and removing");
+		for (Iterator<Process> iterator = entries.iterator(); iterator.hasNext();) 
 		{
-			if (p.state==-1)
-			{
-				p.state=-3;
-				rems.add(p.tableIndex);
-				numDone++;
-			}
-		}
-		for (Integer i: rems)
-		{
-			System.out.println("REMOVING a process. Details -");
-			entries.get(i).printDetails();
-			entries.remove(i);
-		}
-		for (Process p: entries)
-		{	
-			p.tableIndex=entries.indexOf(p);
-		} 
-		System.out.println("Printing contents of PCB after deleting");
-		for (Process p: entries)
-		{	
-			p.printDetails();
-		}
+		    Process proc = iterator.next();
+		    if (proc.state==-1) 
+		    {
+		       	numDone+=1;
+		    	iterator.remove();
+		        System.out.println("Process Removed : Process entries size = "+entries.size());
+		        System.out.println("Number of procs complete : " + numDone);
+		    }
+		
+		for(Process proc1:entries)
+			proc1.tableIndex=entries.indexOf(proc1);
+				    
+		}		
 	}
 
 	static void printProcessTable()

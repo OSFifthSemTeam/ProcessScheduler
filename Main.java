@@ -8,9 +8,9 @@ public class Main
 	{
 		boolean debug=true;
 		
-		File sysconfigfile = new File("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/simulator_config"); //Sysconfig file
-		File jobfile = new File ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/test1.job");// Job file
-		String Modelfilepath = ("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/"); //Path for model file directory
+		File sysconfigfile = new File("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\simulator_config"); //Sysconfig file
+		File jobfile = new File ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\test1.job");// Job file
+		String Modelfilepath = ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\"); //Path for model file directory
 		
 		/* Call 
 		ConfigInput
@@ -39,7 +39,7 @@ public class Main
 			InputTable.display();
 		}
 		int current_time=0;
-		while (SystemConfig.total_jobs_submitted>=PCB.numDone)
+		while (SystemConfig.total_jobs_submitted>PCB.numDone)
 		{
 			System.out.println("CURRENT TIME - " + current_time);
 			InputTable.checkfornewprocess(current_time);
@@ -59,5 +59,6 @@ public class Main
 					}
 				}
 		}
+		System.out.println("---------------------\nSimulation Complete\n------------------------");
 	}
 }

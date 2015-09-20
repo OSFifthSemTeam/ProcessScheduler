@@ -15,9 +15,21 @@ public class Ready {
 	
 	static void update(int psg)
 	{
-		System.out.println("Came to update the Ready Queue");	
+		System.out.println("Came to update the Ready Queue");
+		System.out.println("Running process : ");
+		if(running!=null)
+			running.printDetails();
+		else 
+			System.out.println("NULL");
+		
 		if (running!=null)
 		{
+			if(running.state==-1)
+			{
+				running=null;
+				return;
+			}
+			
 			PCB.entries.get(running.tableIndex).current_exec+=psg;
 			System.out.println("Current_exec after incrementing" + PCB.entries.get(running.tableIndex).current_exec);
 			if (PCB.entries.get(running.tableIndex).current_exec!=running.current_exec)
