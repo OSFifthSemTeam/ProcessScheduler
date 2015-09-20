@@ -47,4 +47,25 @@ public class Process
 		System.out.println("curr_exec " + current_exec + " curr_mem " + curr_mem);
 		System.out.println("-----------------------------------------------------------");
 	}
+	
+	void printDetailsforProcTable()
+	{
+		CpuSpec current_cpu_spec;
+		IOSpec current_io_spec;
+		
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("PID - " + pid + " index " + tableIndex + " state " + state);
+		System.out.println("Current Specifications ");
+		int current_type = specifications.element().type;
+		if(current_type==0){
+			current_cpu_spec = (CpuSpec)specifications.element();
+			System.out.println(current_cpu_spec.toString());
+		}
+		else if(current_type==1){
+			current_io_spec = (IOSpec)specifications.element();
+			System.out.println(current_io_spec.toString());
+		}
+		System.out.println("curr_exec " + current_exec + " curr_mem " + curr_mem);
+		System.out.println("-----------------------------------------------------------");
+	}
 }

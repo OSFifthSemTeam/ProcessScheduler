@@ -1,3 +1,5 @@
+import java.io.File;
+
 
 
 public class Main
@@ -5,21 +7,27 @@ public class Main
 	public static void main(String args[])
 	{
 		boolean debug=true;
+		
+		File sysconfigfile = new File("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\simulator_config"); //Sysconfig file
+		File jobfile = new File ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\test1.job");// Job file
+		String Modelfilepath = ("Z:\\OS assignment progs\\Assignment 2\\Sample inputs\\sample1\\"); //Path for model file directory
+		
 		/* Call 
 		ConfigInput
 		ReadJobs
 		ReadModelFiles */
+		
 		if (debug)
 		{
 			System.out.println("Starts here...");
 			System.out.println("---------------------------------");
 		}
-		ConfigInput newconf = new ConfigInput();
-		newconf.readSysConfig();
-		ReadJobs.readJobFile();
+		//ConfigInput newconf = new ConfigInput();
+		ConfigInput.readSysConfig(sysconfigfile);
+		ReadJobs.readJobFile(jobfile);
 		if (debug)
 			System.out.println("---------------------------------");
-		ReadModelFiles.ReadModels();
+		ReadModelFiles.ReadModels(Modelfilepath);
 		if (debug)
 		{
 			System.out.println("---------------------------------");
@@ -37,8 +45,19 @@ public class Main
 			InputTable.checkfornewprocess(current_time);
 			Ready.update(SystemConfig.PSG);
 			IOQueues.update(SystemConfig.PSG);
-			MemQueue.update();	
+			MemQueue.update();
 			current_time+=SystemConfig.PSG;
+			
+				if(OutputTable.getCurrentSize()>0)
+				{
+					Integer next_output_time = OutputTable.getNextOutputTime();
+					if((int)next_output_time<=current_time)
+					{
+						System.out.println("Printing Process Table");
+						PCB.printProcessTable();
+						OutputTable.removeFirstEntry();
+					}
+				}
 		}
 	}
 }

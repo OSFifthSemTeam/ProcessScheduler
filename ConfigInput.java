@@ -5,11 +5,10 @@ import java.io.*;
 
 public class ConfigInput
 {
-	void readSysConfig()
+	static void readSysConfig(File ipfile)
 	{	
 		try
 		{
-			File ipfile = new File("/home/yasu/OS/Assignment/ProcessScheduler/Inputs/sample1/simulator_config");
 			Scanner in = new Scanner(ipfile);
 			String extractor,extracted;
 			while(in.hasNext())

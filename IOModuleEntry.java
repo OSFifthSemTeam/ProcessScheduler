@@ -6,7 +6,7 @@ public class IOModuleEntry {
 	int made;
 	IOModuleEntry()
 	{
-		System.out.println("Allocating waiting queue in IOModuleEntry");
+		System.out.println("Creating IOModuleEntry");
 		waiting = new LinkedList<Process>();
 		made=1;	
 	}
